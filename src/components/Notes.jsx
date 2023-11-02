@@ -54,7 +54,7 @@ const Notes = () => {
                   </Link>
                </li>
                {data.map((item) => (
-                  <li key={item._id}>
+                  <li key={item._id} className="notes-1">
                      <Link to={`/note/${item._id}`}>
                         <h3>{item.title}</h3>
                         <p>{item.description}</p>

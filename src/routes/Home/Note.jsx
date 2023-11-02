@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 function Note() {
@@ -28,23 +28,22 @@ function Note() {
             console.log(err);
             setIsLoading(false);
          });
-   }, []);
-
-   useEffect(() => {
       axios.get("https://api.ipify.org/?format=json").then((res) => {
          setIp(res.data.ip);
       });
-
-      //passing getData method to the lifecycle method
    }, []);
+
    useEffect(() => {
-      if (serverIp === ip) {
+      // do something
+
+      if (ip === serverIp) {
          setSameUser(true);
       } else {
          setSameUser(false);
       }
-   });
-   // console.log("same user?", sameUser);
+      console.log(sameUser);
+   }, [ip]);
+
    // console.log("serverip", serverIp);
    // console.log("ip", ip);
    function note(e) {
@@ -66,6 +65,7 @@ function Note() {
          }
       });
    }
+
    // useEffect(() => {
    //    const fetchData = async () => {
    //       try {
@@ -127,13 +127,14 @@ function Note() {
             <Link to="/" className="back-button">
                ◀️ Go Back
             </Link>
-            {sameUser ? (
-               <button onClick={removeNote} className="delete removed-note">
-                  🗑️Delete Note
-               </button>
-            ) : (
-               ""
-            )}
+
+            <button
+               onClick={removeNote}
+               className="delete removed-note"
+               hidden={!sameUser}
+            >
+               🗑️Delete Note
+            </button>
          </div>
 
          <form onSubmit={note}>
@@ -145,6 +146,7 @@ function Note() {
                      onChange={(e) => setTitle(e.target.value)}
                      placeholder="Title"
                      className="title"
+                     disabled={!sameUser}
                   />
                </div>
                <textarea
@@ -156,12 +158,15 @@ function Note() {
                   row="4"
                   cols="50"
                   className="description"
+                  disabled={!sameUser}
                ></textarea>
             </div>
+
             <input
                type="submit"
                value={submitted ? "Saving note." : "💾Save Note"}
                disabled={submitted}
+               hidden={!sameUser}
             />
             <div className="text-center">
                {submitted && (

@@ -44,6 +44,16 @@ input[type="submit"] {
    text-transform: uppercase;
    border-radius: 10px;
 }
+input[type="inactive"] {
+   margin-top: 20px;
+   background-color: #5a6670;
+   color: #fff;
+   border: 0;
+   height: 40px;
+   margin-bottom: 10px;
+   text-transform: uppercase;
+   border-radius: 10px;
+}
 
 textarea {
    height: 320px;
@@ -138,7 +148,6 @@ ul.notes li a {
    flex-direction: column;
    color: #213547;
    height: 100%;
-
    box-sizing: border-box;
 }
 
@@ -156,6 +165,12 @@ ul.notes p {
    font-weight: 300;
    margin-top: 0;
    margin-bottom: 10px;
+}
+.notes-1 p {
+   max-height: 100px;
+   word-break: break-all;
+   max-width: 1000px;
+   overflow: hidden;
 }
 
 .single-note {
@@ -181,14 +196,16 @@ ul.notes p {
    display: flex;
    align-items: center;
 }
-.plus{
-  height: 95%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.plus {
+   width: 100%;
+   height: 95%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 .add-note-button > a {
+   width: 100%;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -220,6 +237,12 @@ ul.notes p {
    padding: 20px;
    font-size: 1.6rem;
    text-align: center;
+}
+.removed-note:hover {
+   cursor: pointer;
+}
+.inactive {
+   background-color: #86b88a;
 }
 
 .removed-note span {
