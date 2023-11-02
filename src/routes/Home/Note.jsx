@@ -6,6 +6,9 @@ function Note() {
    const baseURL = `${import.meta.env.VITE_SERVER_URL}/api/notes/${id}`;
    const [description, setDescription] = useState("");
    const [title, setTitle] = useState("");
+   const [serverIp, setServerIp] = useState("");
+   const [ip, setIp] = useState("");
+   const [sameUser, setSameUser] = useState(false);
    const [submitted, setSubmitted] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
    const navigate = useNavigate();
@@ -18,6 +21,7 @@ function Note() {
             console.log(res);
             setTitle(res.data.title);
             setDescription(res.data.description);
+            setServerIp(res.data.ip);
             setIsLoading(false);
          })
          .catch((err) => {
@@ -25,6 +29,24 @@ function Note() {
             setIsLoading(false);
          });
    }, []);
+
+   useEffect(() => {
+      axios.get("https://api.ipify.org/?format=json").then((res) => {
+         setIp(res.data.ip);
+      });
+
+      //passing getData method to the lifecycle method
+   }, []);
+   useEffect(() => {
+      if (serverIp === ip) {
+         setSameUser(true);
+      } else {
+         setSameUser(false);
+      }
+   });
+   // console.log("same user?", sameUser);
+   // console.log("serverip", serverIp);
+   // console.log("ip", ip);
    function note(e) {
       e.preventDefault();
       axios.put(baseURL, { title, description }).then((response) => {
@@ -105,9 +127,13 @@ function Note() {
             <Link to="/" className="back-button">
                ◀️ Go Back
             </Link>
-            <button onClick={removeNote} className="delete">
-               🗑️Delete Note
-            </button>
+            {sameUser ? (
+               <button onClick={removeNote} className="delete">
+                        🗑️Delete Note
+               </button>
+            ) : (
+               ""
+            )}
          </div>
 
          <form onSubmit={note}>

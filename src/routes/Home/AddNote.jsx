@@ -6,11 +6,23 @@ function AddNote() {
    const baseURL = `${import.meta.env.VITE_SERVER_URL}/api/notes`;
    const [description, setDescription] = useState("");
    const [title, setTitle] = useState("");
+   const [ip, setIp] = useState("");
    const [submitted, setSubmitted] = useState(false);
+
+   const getData = async () => {
+      const res = await axios.get("https://api.ipify.org/?format=json");
+      console.log(res.data);
+      setIp(res.data.ip);
+   };
+   useEffect(() => {
+      console.log(ip);
+      //passing getData method to the lifecycle method
+      getData();
+   }, []);
 
    function addNote(e) {
       e.preventDefault();
-      axios.post(baseURL, { title, description }).then((response) => {
+      axios.post(baseURL, { title, description, ip }).then((response) => {
          if (!response.ok) {
             setTitle("");
             setDescription("");
