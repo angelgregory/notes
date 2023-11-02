@@ -44,9 +44,9 @@ app.get("/api/notes/:id", async (req, res) => {
 //create a note
 app.post("/api/notes", async (req, res) => {
    try {
-      const { title, description } = req.body;
+      const { title, description, ip } = req.body;
 
-      const data = await notes.create({ title, description });
+      const data = await notes.create({ title, description, ip });
       if (!data) {
          throw new Error("an error occured creating a note.");
       } else {
