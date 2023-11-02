@@ -18,7 +18,7 @@ function Note() {
       axios
          .get(baseURL)
          .then((res) => {
-            console.log(res);
+            // console.log(res);
             setTitle(res.data.title);
             setDescription(res.data.description);
             setServerIp(res.data.ip);
@@ -128,8 +128,8 @@ function Note() {
                ◀️ Go Back
             </Link>
             {sameUser ? (
-               <button onClick={removeNote} className="delete">
-                        🗑️Delete Note
+               <button onClick={removeNote} className="delete removed-note">
+                  🗑️Delete Note
                </button>
             ) : (
                ""
