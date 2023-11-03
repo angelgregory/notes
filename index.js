@@ -8,12 +8,22 @@ const notes = require("./models/notes");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
+const uri = process.env.MONGO_CONNECTION_STRING;
+const client = new MongoClient(uri);
 
 connectDB();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+client.connect(err => {
+   if(err){ console.error(err); return false;}
+   // connection to mongo is successful, listen for requests
+   app.listen(PORT, () => {
+       console.log("listening for requests");
+   })
+});
 //get all notes
 app.get("/api/notes", async (req, res) => {
    try {
