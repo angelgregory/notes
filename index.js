@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const { MongoClient } = require('mongodb');
 const cors = require("cors");
 const express = require("express");
 const connectDB = require("./connectDB");
@@ -16,13 +16,15 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
-client.connect(err => {
-   if(err){ console.error(err); return false;}
+client.connect((err) => {
+   if (err) {
+      console.error(err);
+      return false;
+   }
    // connection to mongo is successful, listen for requests
    app.listen(PORT, () => {
-       console.log("listening for requests");
-   })
+      console.log("listening for requests");
+   });
 });
 //get all notes
 app.get("/api/notes", async (req, res) => {
