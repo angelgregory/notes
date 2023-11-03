@@ -10,5 +10,14 @@ const connectDB = async () => {
       process.exit(1);
    }
 };
+app.all("*", (req, res) => {
+   res.json({ "every thing": "is awesome" });
+});
 
+//Connect to the database before listening
+connectDB().then(() => {
+   app.listen(PORT, () => {
+      console.log("listening for requests");
+   });
+});
 module.exports = connectDB;
