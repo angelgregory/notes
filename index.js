@@ -93,7 +93,9 @@ app.delete("/api/notes/:id", async (req, res) => {
 app.get("/", (req, res) => {
    res.json("hello world");
 });
-
+app.get("/api/notes", (req, res) => {
+   res.json(res);
+});
 app.get("*", (req, res) => {
    res.status(404).json({ message: "Not Found" });
 });
