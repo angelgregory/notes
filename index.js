@@ -98,6 +98,13 @@ app.get("*", (req, res) => {
    res.status(404).json({ message: "Not Found" });
 });
 
-app.listen(PORT, () => {
-   console.log(`server is running on PORT: ${PORT}`);
+// app.listen(PORT, () => {
+//    console.log(`server is running on PORT: ${PORT}`);
+// });
+
+//Connect to the database before listening
+connectDB().then(() => {
+   app.listen(PORT, () => {
+      console.log("listening for requests");
+   });
 });
