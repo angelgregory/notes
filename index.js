@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const cors = require("cors");
 const express = require("express");
 const connectDB = require("./connectDB");
@@ -97,8 +98,17 @@ app.get("*", (req, res) => {
    res.status(404).json({ message: "Not Found" });
 });
 
-// app.listen(PORT, () => {
-//    console.log(`server is running on PORT: ${PORT}`);
-// });
+app.listen(PORT, () => {
+   console.log(`server is running on PORT: ${PORT}`);
+});
+
+app.all("*", (req, res) => {
+   res.json({ "every thing": "is awesome" });
+});
 
 //Connect to the database before listening
+connectDB().then(() => {
+   app.listen(PORT, () => {
+      console.log("listening for requests");
+   });
+});
