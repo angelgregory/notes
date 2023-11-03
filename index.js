@@ -102,9 +102,9 @@ app.listen(PORT, () => {
    console.log(`server is running on PORT: ${PORT}`);
 });
 
-app.all("*", (req, res) => {
-   res.json({ "every thing": "is awesome" });
-});
+// app.all("*", (req, res) => {
+//    res.json({ "every thing": "is awesome" });
+// });
 
 //Connect to the database before listening
 connectDB().then(() => {
