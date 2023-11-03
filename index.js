@@ -95,6 +95,7 @@ app.get("/", (req, res) => {
 });
 app.get("/api/notes", (req, res) => {
    res.json(res);
+   console.log(res);
 });
 app.get("*", (req, res) => {
    res.status(404).json({ message: "Not Found" });
